@@ -12,7 +12,7 @@ For this repository, openwhisk was deployed on a kubernetes cluster using kind, 
 - openwhisk cli
 - helm
 ### Installation
-Don't forget to change the API to your internal one inside `mycluster.yaml`.
+Don't forget to change the IP to your internal one inside `mycluster.yaml`.
 
 If you're lucky enough, just run `whisk_setup.sh` in your console and whisk should be running.
 If not, follow each command inside the .sh file step-by-step and troubleshoot.
@@ -22,10 +22,10 @@ After this, don't forget to connect your wsk cli: `wsk property set --apihost <I
 And setting auth: `wsk property set --auth 23bc46b1-71f6-4ed5-8c54-816aa4f8c502:123zO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP`
 
 If you don't have access for creating actions, you need to do some wskadmin magic, described [here](https://github.com/apache/openwhisk-deploy-kube#administering-openwhisk).
+Also, if you get issues with the whisk CLI like "cannot validate certificate", use `wsk -i` instead of `wsk`.
+
 
 Then, run `create_functions.sh` to create the two functions described below (and a helloworld for testing). Find more [here](https://github.com/apache/openwhisk/blob/master/docs/actions-python.md) on how to trigger them.
-
-If you get issues with the whisk CLI like "cannot validate certificate", use `wsk -i` instead of `wsk`
 
 ### Functions
 1) Hasher: takes a "course" parameter, my name (Denis) and returns a md5 hash.
