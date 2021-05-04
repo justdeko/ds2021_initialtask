@@ -58,3 +58,34 @@ If you want to go even one step further, delete the kind cluster: `kind delete k
 
 ## Task 2
 
+The second task included completing the OpenFaaS Lab up to lab 5, as well as a custom chained function (workflow) idea with at least 4 functions,
+one of them using a public API.
+
+### Some lessons learned form the lab
+
+- use script `openfaas_password.sh` to get the ui password, grafana is just both admin (used, password)
+- use kubeforwarder instead of annyoing terminals
+- if you don't want to use kubeforwarder and instead the cli, use `kubectl port-forward svc/gateway -n openfaas 8080:8080` for faas,
+  and `kubectl port-forward pod/grafana 3000:3000 -n openfaas` for grafana
+- use `faas-cli new --lang python3 my_function` for templates
+- you can manage multiple functions in one yml, and use `faas-cli up` for building pushing and deploying.
+- workshop 5 has an error, as a pod and not a deployment should be forwarded (so expose pod, not expose deployment)
+
+### Prerequisites
+
+- minikube or some other kubernetes thingy
+- openFaas deployed on there
+- faas cli also installed
+- unix once again (for executing the scripts)
+
+### Main idea
+Receiving bad emails is not really nice. So I decided to defend myself from those.
+Each time I get an email to my account, and the sentiment analysis considers it as negative, the lights in my room flash up, 
+and the sender of the email will receive a snarky response immediately. If the e-mail is neutral the sender will get a message
+that I'll get back to them soon, and if it's even positive, they will get a nice compliment. If the email is really bad,
+and I need additional "calming down", a function will me send a picture of a nice cat :)
+
+
+### The functions
+
+- light-machine: controls the lights in my room, lets them flash for a second based on the sentiment (good/bad/neutral)
