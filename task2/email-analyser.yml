@@ -3,12 +3,11 @@ provider:
   name: openfaas
   gateway: http://127.0.0.1:8080
 functions:
-  light-machine:
+  email-analyser:
     lang: python3
-    handler: ./light-machine
-    image: justdeko/light-machine:latest
+    handler: ./email-analyser
+    image: justdeko/email-analyser:latest
     environment:
       write_debug: true
-    environment_file:
-    - env.yml
+      gateway_hostname: "gateway.openfaas"
 

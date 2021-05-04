@@ -63,7 +63,7 @@ one of them using a public API.
 
 ### Some lessons learned form the lab
 
-- use script `openfaas_password.sh` to get the ui password, grafana is just both admin (used, password)
+- use script `openfaas_password.sh` to get the ui password, grafana is just both admin (user, password)
 - use kubeforwarder instead of annyoing terminals
 - if you don't want to use kubeforwarder and instead the cli, use `kubectl port-forward svc/gateway -n openfaas 8080:8080` for faas,
   and `kubectl port-forward pod/grafana 3000:3000 -n openfaas` for grafana
@@ -77,15 +77,23 @@ one of them using a public API.
 - openFaas deployed on there
 - faas cli also installed
 - unix once again (for executing the scripts)
+- ngrok setup with gateway to OpenFaas
+- two instances of bots or automated workflows, one that sends a webhook to the `email-analyser` function,
+one that writes an email back, coming from `email-sender`. I'm using zapier, you can obviously also use an own version.
+  Or, just send a json request to the endpoint if you want to test it out.
 
 ### Main idea
 Receiving bad emails is not really nice. So I decided to defend myself from those.
 Each time I get an email to my account, and the sentiment analysis considers it as negative, the lights in my room flash up, 
 and the sender of the email will receive a snarky response immediately. If the e-mail is neutral the sender will get a message
 that I'll get back to them soon, and if it's even positive, they will get a nice compliment. If the email is really bad,
-and I need additional "calming down", a function will me send a picture of a nice cat :)
+and I need additional "calming down", a function will me send a dog fact :)
 
 
 ### The functions
 
 - light-machine: controls the lights in my room, lets them flash for a second based on the sentiment (good/bad/neutral)
+- email-analyser: analyses the contents of my email (received as a json object), decides if its neutral, positive or negative. sends further
+requests to light-machine, email-sender and cat-as-a-service
+- email-sender: sends an email with a specific content depending on the sentiment
+- dog-fact: returns a cut fact about dogs :)
