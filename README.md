@@ -92,8 +92,40 @@ and I need additional "calming down", a function will me send a dog fact :)
 
 ### The functions
 
-- light-machine: controls the lights in my room, lets them flash for a second based on the sentiment (good/bad/neutral)
-- email-analyser: analyses the contents of my email (received as a json object), decides if its neutral, positive or negative. sends further
-requests to light-machine, email-sender and cat-as-a-service
-- email-sender: sends an email with a specific content depending on the sentiment
-- dog-fact: returns a cut fact about dogs :)
+1. email-analyser: analyses the contents of my email (received as a json object), decides if its neutral, positive or negative. sends further
+requests to light-machine, email-sender and dag-fact
+2. dog-fact: returns a cute fact about dogs :)
+3. light-machine: controls the lights in my room, lets them flash for a second based on the sentiment (good/bad/neutral)
+4. email-sender: sends an email with a specific content depending on the sentiment
+
+The sentiment analysis function is provided by the faas store, you can deploy it with the script
+or `faas-cli store deploy SentimentAnalysis`
+
+### Deployment and workflow
+
+The deployment of all functions is simple, just run `functions_deployer.sh`. Or do it one-by-one with faas-cli.
+
+The main workflow is as follows:
+
+email received → webhook triggers email-analyser (1) → sentiment analysis on email body 
+→ flicker lights according to sentiment (2) → get dog fact if sentiment is bad (3) → send response based on sentiment (4) 
+
+### Webhooks
+
+As mentioned before, there are two external webhook or "action" flows, I'm using zapier, as mentioned before.
+
+- Action 1 triggers email-analyser like a webhook whenever a new email arrives in my inbox, sending the email content in a `body` parameter.
+- Action/Webhook 2 receives a post request from email-sender containing `response_body`, the content of the response email,
+as well as `search_body`, the original email body to find the email that needs responding to. 
+  After this email was found, the action writes a response email.
+  
+### Environment variables
+Both light-machine and email-sender use environment variables, which are stored in `env.yml` at the same level as this README.
+The yaml looks like this, replace the placeholder values with your personal ip and webhook URL:
+
+```
+environment:
+  light_ip: *your magic hue LED light ip address here*
+  email_webhook: *your webhook 2 url here*
+```
+  

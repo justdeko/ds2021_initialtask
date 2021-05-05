@@ -41,15 +41,19 @@ def handle(req):
 
     # send signal to my lights
     requests.post(
-        "http://" + gateway_hostname + ":8080/function/light-machine",
-        data=sentiment,
+        "http://" + gateway_hostname + ":8080/function/light-machine", data=sentiment,
     )
 
     # if i need cheering up, send me a dog fact
     if sentiment == "bad":
         requests.post(
-            "http://" + gateway_hostname + ":8080/function/dog-fact",
-            data=sentiment,
+            "http://" + gateway_hostname + ":8080/function/dog-fact", data=sentiment,
         )
+
+    # send a response based on sentiment
+    requests.post(
+        "http://" + gateway_hostname + ":8080/function/email-sender",
+        data={"sentiment": sentiment, "body": payload["body"]},
+    )
 
     return sentiment

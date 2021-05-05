@@ -1,0 +1,10 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: http://127.0.0.1:8080
+functions:
+  email-sender:
+    lang: python3
+    handler: ./email-sender
+    image: justdeko/email-sender:latest
+
