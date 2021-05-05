@@ -120,7 +120,7 @@ as well as `search_body`, the original email body to find the email that needs r
   After this email was found, the action writes a response email.
   
 ### Environment variables
-Both light-machine and email-sender use environment variables, which are stored in `env.yml` at the same level as this README.
+Both light-machine and email-sender use environment variables, which are stored in `env.yml` in the `task2`folder.
 The yaml looks like this, replace the placeholder values with your personal ip and webhook URL:
 
 ```
