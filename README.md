@@ -83,7 +83,8 @@ one that writes an email back, coming from `email-sender`. I'm using zapier, you
   Or, just send a json request to the endpoint if you want to test it out.
 
 ### Main idea
-Receiving bad emails is not really nice. So I decided to defend myself from those.
+Receiving bad emails is not really nice. So I decided to defend myself from those. I present to you: "Unreply".
+
 Each time I get an email to my account, and the sentiment analysis considers it as negative, the lights in my room flash up, 
 and the sender of the email will receive a snarky response immediately. If the e-mail is neutral the sender will get a message
 that I'll get back to them soon, and if it's even positive, they will get a nice compliment. If the email is really bad,
