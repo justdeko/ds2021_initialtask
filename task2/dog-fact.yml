@@ -7,4 +7,6 @@ functions:
     lang: python3
     handler: ./dog-fact
     image: justdeko/dog-fact:latest
+    environment:
+      write_debug: true
 

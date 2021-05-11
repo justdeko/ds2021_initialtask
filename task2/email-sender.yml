@@ -7,4 +7,8 @@ functions:
     lang: python3
     handler: ./email-sender
     image: justdeko/email-sender:latest
+    environment:
+      write_debug: true
+    environment_file:
+    - env.yml
 

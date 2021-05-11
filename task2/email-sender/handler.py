@@ -29,7 +29,9 @@ def handle(req):
     elif "good" in sentiment:
         response_body = "Thank you a lot for this email, very nice from you! I'll get back to you as soon as I can."
 
-    reply = requests.post(url, data={"response_body": response_body, "search_body": body})
+    reply = requests.post(
+        url, data={"response_body": response_body, "search_body": body}
+    )
     if reply.status_code == 200:
         return "Email sent."
     else:
